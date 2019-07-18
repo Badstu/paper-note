@@ -10,7 +10,7 @@
 
 这么做的原因是，在单图像去噪任务中，sRGB域的图像所含的噪声非常复杂，难以建模，但是相机传感器得到Raw文件的噪声容易建模，在该领域之前也有相当多的工作，如 [1, 2, 3, 4]。本文把相机传感器的噪声分为了`shot noise`和`read noise`两种噪声，具体在后面详述。得到噪声的建模后，该方法引入了U-net [5] 作为自己的训练网络，输入合成的噪声raw image，输出去噪后的raw image，并把unprocessd raw文件作为ground truth，最后计算输出和GT的L1 loss。如下图：
 
-![1563412701548](C:\Users\sayhi\AppData\Roaming\Typora\typora-user-images\1563412701548.png)
+![1563412701548](D:\workspaces\paper-note\assets\C%5CUsers%5Csayhi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563412701548.png)
 
 ## raw image pipline
 
@@ -24,19 +24,19 @@
 
 把这两个噪声放到一起，得到一个单异方差高斯分布（single heteroscedastic Gaussian），观测值y是一个服从高斯分布的随机变量，其方差是x的函数：
 
-![1563413565862](C:\Users\sayhi\AppData\Roaming\Typora\typora-user-images\1563413565862.png)
+![1563413565862](D:\workspaces\paper-note\assets\C%5CUsers%5Csayhi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563413565862.png)
 
-![1563413595897](C:\Users\sayhi\AppData\Roaming\Typora\typora-user-images\1563413595897.png)
+![1563413595897](D:\workspaces\paper-note\assets\C%5CUsers%5Csayhi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563413595897.png)
 
 gd是数字增益，ga是模拟增益，这两个值是相继曝光值的直接函数，sigma_r是read noise的固定方差。
 
 采样值：
 
-![1563413724771](C:\Users\sayhi\AppData\Roaming\Typora\typora-user-images\1563413724771.png)
+![1563413724771](D:\workspaces\paper-note\assets\C%5CUsers%5Csayhi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563413724771.png)
 
 建模结果：
 
-![1563413772109](C:\Users\sayhi\AppData\Roaming\Typora\typora-user-images\1563413772109.png)
+![1563413772109](D:\workspaces\paper-note\assets\C%5CUsers%5Csayhi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563413772109.png)
 
 ### 2. 去马赛克
 
@@ -46,11 +46,11 @@ gd是数字增益，ga是模拟增益，这两个值是相继曝光值的直接�
 
 数字增益来源于自动曝光算法，大部分相机的自动曝光算法是个黑盒，很难建模，本文就假设图像强度服从不同的指数族分布：
 
-![1563414075273](C:\Users\sayhi\AppData\Roaming\Typora\typora-user-images\1563414075273.png)
+![1563414075273](D:\workspaces\paper-note\assets\C%5CUsers%5Csayhi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563414075273.png)
 
-对于x>0，得到![1563414272992](C:\Users\sayhi\AppData\Roaming\Typora\typora-user-images\1563414272992.png)的极大似然估计为样本均值的倒数，这就意味着放大x即为缩小![1563414264600](C:\Users\sayhi\AppData\Roaming\Typora\typora-user-images\1563414264600.png)。
+对于x>0，得到![1563414272992](D:\workspaces\paper-note\assets\C%5CUsers%5Csayhi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563414272992.png)的极大似然估计为样本均值的倒数，这就意味着放大x即为缩小![1563414264600](C:\Users\sayhi\AppData\Roaming\Typora\typora-user-images\1563414264600.png)。
 
-数据集的放大比率为1.25，则![1563414297611](C:\Users\sayhi\AppData\Roaming\Typora\typora-user-images\1563414297611.png)= 1/1.25 =0.8，去正态分布，均值为0.8，方差为0.1，[0.5， 1.1]。
+数据集的放大比率为1.25，则![1563414297611](D:\workspaces\paper-note\assets\C%5CUsers%5Csayhi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563414297611.png)= 1/1.25 =0.8，去正态分布，均值为0.8，方差为0.1，[0.5， 1.1]。
 
 ### 4. 白平衡
 
@@ -60,15 +60,15 @@ gd是数字增益，ga是模拟增益，这两个值是相继曝光值的直接�
 
 g > 1 and x > t, t = 0.9: 
 
-![1563414678208](C:\Users\sayhi\AppData\Roaming\Typora\typora-user-images\1563414678208.png)
+![1563414678208](D:\workspaces\paper-note\assets\C%5CUsers%5Csayhi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563414678208.png)
 
-x <= t, ![1563414733765](C:\Users\sayhi\AppData\Roaming\Typora\typora-user-images\1563414733765.png)
+x <= t, ![1563414733765](D:\workspaces\paper-note\assets\C%5CUsers%5Csayhi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563414733765.png)
 
-g <= 1, ![1563414757283](C:\Users\sayhi\AppData\Roaming\Typora\typora-user-images\1563414757283.png)
+g <= 1, ![1563414757283](D:\workspaces\paper-note\assets\C%5CUsers%5Csayhi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563414757283.png)
 
 如图：
 
-![1563414780680](C:\Users\sayhi\AppData\Roaming\Typora\typora-user-images\1563414780680.png)
+![1563414780680](D:\workspaces\paper-note\assets\C%5CUsers%5Csayhi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563414780680.png)
 
 ### 5. 色彩校正
 
@@ -76,9 +76,9 @@ g <= 1, ![1563414757283](C:\Users\sayhi\AppData\Roaming\Typora\typora-user-image
 
 ### 6. gamma 压缩
 
-标准gamma曲线：![1563415014744](C:\Users\sayhi\AppData\Roaming\Typora\typora-user-images\1563415014744.png)
+标准gamma曲线：![1563415014744](D:\workspaces\paper-note\assets\C%5CUsers%5Csayhi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563415014744.png)
 
-简单求逆：![1563415043580](C:\Users\sayhi\AppData\Roaming\Typora\typora-user-images\1563415043580.png)
+简单求逆：![1563415043580](D:\workspaces\paper-note\assets\C%5CUsers%5Csayhi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563415043580.png)
 
 ### 7. 色调映射
 
@@ -86,11 +86,11 @@ g <= 1, ![1563414757283](C:\Users\sayhi\AppData\Roaming\Typora\typora-user-image
 
 简单假设色调映射曲线是一个“smoothstep”曲线：
 
-![1563415107527](C:\Users\sayhi\AppData\Roaming\Typora\typora-user-images\1563415107527.png)
+![1563415107527](D:\workspaces\paper-note\assets\C%5CUsers%5Csayhi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563415107527.png)
 
 求逆：
 
-![1563415147613](C:\Users\sayhi\AppData\Roaming\Typora\typora-user-images\1563415147613.png)
+![1563415147613](D:\workspaces\paper-note\assets\C%5CUsers%5Csayhi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563415147613.png)
 
 至此，本文的主要方法以阐述完毕，剩下的就是用U-net建模，详细的可以看论文。
 
