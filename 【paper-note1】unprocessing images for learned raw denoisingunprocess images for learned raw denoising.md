@@ -10,7 +10,7 @@
 
 这么做的原因是，在单图像去噪任务中，sRGB域的图像所含的噪声非常复杂，难以建模，但是相机传感器得到Raw文件的噪声容易建模，在该领域之前也有相当多的工作，如 [1, 2, 3, 4]。本文把相机传感器的噪声分为了`shot noise`和`read noise`两种噪声，具体在后面详述。得到噪声的建模后，该方法引入了U-net [5] 作为自己的训练网络，输入合成的噪声raw image，输出去噪后的raw image，并把unprocessd raw文件作为ground truth，最后计算输出和GT的L1 loss。如下图：
 
-![1563412701548](.\\assets\C%5CUsers%5Csayhi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563412701548.png)
+![1563412701548](\assets\C%5CUsers%5Csayhi%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1563412701548.png)
 
 ## raw image pipline
 
