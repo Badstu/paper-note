@@ -39,3 +39,10 @@
 - [ ] Residual Dense Network for Image Super-Resolution `2018`
 - [ ] RGB-NIR Demosaicing Using Deep Residual U-Net `2018`
 - [ ] TWO-LAYER COLOR FILTER ARRAY FOR HIGH QUALITY IMAGES
+
+
+
+## 去摩尔纹
+
+- [ ] 基于图像分解的纹理图像摩尔纹消除方法 `天津大学 刘芳蕾 2016`
+- [ ] 摄屏类图像重构算法 `计算机系统应用 2019`
