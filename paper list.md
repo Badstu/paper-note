@@ -20,7 +20,7 @@
 - [ ] RGBX格式图像传感器的去马赛克算法_董鹏宇 `2018`
 - [ ] 非bayer格式图像传感器去马赛克方法_董鹏宇 `2018`
 - [ ] 基于残余插值的卷积神经网络去马赛克算法_贾慧秒 `2017`
-- [ ] 基于深度学习的RGB-NIR图像去马赛克 `2019`
+- [x] 基于深度学习的RGB-NIR图像去马赛克 `2019`
 - [ ] 基于梯度局部一致性的自适应Bayer模式彩色图像恢复算法_王东升 `2019`
 - [ ] 联合去马赛克和去噪_任娟 `2018`
 
@@ -35,7 +35,7 @@
 - [x] Learning Deep Convolutional Networks for Demosaicing `2018`
 - [ ] Multi-spectral SIFT for Scene Category Recognition `2011`
 - [ ] Neural net architectures for image demosaicing `2018`
-- [ ] PERFORMANCE IMPROVEMENT OF DEEP LEARNING BASED GESTURE `2016`
+- [ ] Performance improvement of deep learning based gesture recognition using spatiotemporal demosaicing technique `2016`
 - [ ] Residual Dense Network for Image Super-Resolution `2018`
 - [ ] RGB-NIR Demosaicing Using Deep Residual U-Net `2018`
 - [ ] TWO-LAYER COLOR FILTER ARRAY FOR HIGH QUALITY IMAGES
@@ -46,3 +46,15 @@
 
 - [ ] 基于图像分解的纹理图像摩尔纹消除方法 `天津大学 刘芳蕾 2016`
 - [ ] 摄屏类图像重构算法 `计算机系统应用 2019`
+
+
+
+## ISP类
+
+- [ ] Deep Camera: A Fully Convolutional Neural Network for Image Signal Processing `2019`
+- [ ] Underexposed Photo Enhancement using Deep Illumination Estimation `CVPR2019`
+- [ ] Attention-guided Network for Ghost-free High Dynamic Range Imaging `CVPR2019`
+- [x] Reconfiguring the Imaging Pipeline for Computer Vision `ICCV2017`
+
+
+
