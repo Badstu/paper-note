@@ -18,10 +18,6 @@
 
 本文核心思想是利用一个多分辨率全卷积网络对`摄屏图像`的摩尔纹去除，其实想法很简单，也是端到端的神经网络，损失函数是像素级的L2距离。多分辨率网络和HR-net很像，不过下采样是全卷积网络，上采样是膨胀卷积，输出是简单相加，算是比较简单方法：
 
-![](https://raw.githubusercontent.com/Badstu/pic_set/master/img/20191105223517.png)
-
-![](https://raw.githubusercontent.com/Badstu/pic_set/master/img/20191105223611.png)
-
 之所以能发A，有如下几点：
 
 1. 据作者自己说，他是第一个做摄屏图像去摩尔纹的，既然它在顶刊上，就姑且当他是真的吧。
